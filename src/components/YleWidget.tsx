@@ -31,7 +31,7 @@ const YleWidget = (props: Props) => {
     <WidgetWrapper
       name={"Svenska Yle"}
       bgColor={"bg-green-100"}
-      borderColor={"border-green-200"}
+      borderColor={"border-green-300"}
       isExpandable={true}
     >
       {status === "error" ? (

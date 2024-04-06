@@ -1,6 +1,7 @@
 "use client";
 
 import IPWidget from "@/components/IPWidget";
+import WeatherWidget from "@/components/WeatherWidget";
 import WikiWidget from "@/components/WikiWidget";
 import YleWidget from "@/components/YleWidget";
 import useKeyStore, { Keys } from "@/utils/useKeyStore";
@@ -61,6 +62,7 @@ const Home = () => {
         {/* vänstra panelen */}
         <div className="w-64 flex flex-col gap-4">
           <IPWidget></IPWidget>
+          <WeatherWidget></WeatherWidget>
         </div>
         {/* högra panelen */}
         <div className="w-[65ch] flex flex-col gap-4">
