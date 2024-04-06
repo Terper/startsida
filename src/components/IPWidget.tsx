@@ -11,24 +11,29 @@ import { CgSpinner, CgSync } from "react-icons/cg";
 type Props = {};
 
 type GetIP = {
-  query: string;
-  status: string;
-  country: string;
-  countryCode: string;
-  region: string;
-  regionName: string;
+  ip: string;
   city: string;
-  zip: string;
-  lat: number;
-  lon: number;
+  region: string;
+  region_code: string;
+  country: string;
+  country_name: string;
+  continent_code: string;
+  in_eu: boolean;
+  postal: string;
+  latitude: number;
+  longitude: number;
   timezone: string;
-  isp: string;
+  utc_offset: string;
+  country_calling_code: string;
+  currency: string;
+  languages: string;
+  asn: string;
   org: string;
-  as: string;
 };
 
 const getIp = async () => {
-  const response = await fetch("https://ip-api.com/json/");
+  const response = await fetch("https://ipapi.co/json/");
+  console.log(response);
   if (!response.ok) throw new Error("Tjänst urfnk");
   return await response.json();
 };
@@ -55,10 +60,10 @@ const IPWidget = (props: Props) => {
         </div>
       ) : (
         <div className="flex flex-col py-2 px-4">
-          <span>{data.query}</span>
+          <span>{data.ip}</span>
           <div className="flex space-x-2">
             <span>{data.city}</span>
-            <span>{data.countryCode}</span>
+            <span>{data.country}</span>
           </div>
         </div>
       )}
