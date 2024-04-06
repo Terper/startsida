@@ -28,7 +28,7 @@ type GetIP = {
 };
 
 const getIp = async () => {
-  const response = await fetch("http://ip-api.com/json/");
+  const response = await fetch("https://ip-api.com/json/");
   if (!response.ok) throw new Error("Tjänst urfnk");
   return await response.json();
 };
