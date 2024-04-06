@@ -25,6 +25,10 @@ const getFeatured = async (key: string | undefined) => {
     throw new Error("Kunde inte ansluta till Wikipedia");
   }
   const json = await response.json();
+
+  if (!(json as GetFeatured).tfa) {
+    throw new Error("Wikipedia gav fel data");
+  }
   return json;
 };
 
