@@ -52,7 +52,7 @@ const WikiWidget = (props: Props) => {
     <WidgetWrapper
       name={"Dagens artikel på svenska Wikipedia"}
       bgColor={"bg-violet-100"}
-      borderColor={"violet-teal-200"}
+      borderColor={"border-violet-300"}
       isExpandable={true}
     >
       {status === "error" ? (

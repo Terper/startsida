@@ -3,7 +3,8 @@ import { parseStringPromise } from "xml2js";
 
 const GET = async () => {
   const response = await fetch(
-    "https://svenska.yle.fi/nyheter/senaste-nytt.rss"
+    "https://svenska.yle.fi/nyheter/senaste-nytt.rss",
+    { cache: "no-cache" }
   );
 
   const text = await response.text();
