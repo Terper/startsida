@@ -3,9 +3,27 @@
 import IPWidget from "@/components/IPWidget";
 import WikiWidget from "@/components/WikiWidget";
 import YleWidget from "@/components/YleWidget";
-import useKeyStore from "@/utils/useKeyStore";
+import useKeyStore, { Keys } from "@/utils/useKeyStore";
 import { useState } from "react";
 import { CgClose, CgOptions } from "react-icons/cg";
+
+const settingsForm = (keys: Keys) => [
+  {
+    name: "wikipedia",
+    label: "Wikipedia API nyckel",
+    key: keys.wikipedia,
+  },
+  {
+    name: "openweather",
+    label: "OpenWeather API nyckel",
+    key: keys.openweather,
+  },
+  {
+    name: "openai",
+    label: "OpenAI-AMA API nyckel",
+    key: keys.openai,
+  },
+];
 
 const Home = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -17,16 +35,17 @@ const Home = () => {
 
   const cancelSettings = () => {
     setIsSettingsOpen(false);
+    setKeys(keys);
   };
 
   const updateSettings = (event: any) => {
     event.preventDefault();
+    // hämtar formulär data genom onSubmit eventet
     const form = event.currentTarget;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
     setKeys(data);
-
     setIsSettingsOpen(false);
   };
 
@@ -39,14 +58,17 @@ const Home = () => {
         </button>
       </header>
       <main className="p-4 flex gap-4">
+        {/* vänstra panelen */}
         <div className="w-64 flex flex-col gap-4">
           <IPWidget></IPWidget>
         </div>
+        {/* högra panelen */}
         <div className="w-[65ch] flex flex-col gap-4">
           <YleWidget></YleWidget>
           <WikiWidget></WikiWidget>
         </div>
       </main>
+      {/* inställnings modal, visas om isSettingsOpen är sant */}
       <div
         className={`fixed inset-0 h-screen w-screen bg-black/50 flex items-center justify-center ${
           isSettingsOpen ? "flex" : "hidden"
@@ -60,45 +82,20 @@ const Home = () => {
             </button>
           </div>
           <form className="flex flex-col" onSubmit={updateSettings}>
-            <div className="flex flex-col gap-2 px-4 py-2">
-              <label htmlFor="wikipedia" className="">
-                Wikipedia API Key
-              </label>
-              <input
-                required
-                type="password"
-                id="wikipedia"
-                name="wikipedia"
-                className="border border-black rounded  py-1 px-2"
-                defaultValue={keys.wikipedia}
-              ></input>
-            </div>
-            <div className="flex flex-col gap-2 px-4 py-2">
-              <label htmlFor="openweather" className="">
-                Openweather API Key
-              </label>
-              <input
-                required
-                type="password"
-                id="openweather"
-                name="openweather"
-                className="border border-black rounded  py-1 px-2"
-                defaultValue={keys.openweather}
-              ></input>
-            </div>
-            <div className="flex flex-col gap-2 px-4 py-2">
-              <label htmlFor="openai" className="">
-                OpenAI-AMA API Key
-              </label>
-              <input
-                required
-                type="password"
-                id="openai"
-                name="openai"
-                className="border border-black rounded py-1 px-2"
-                defaultValue={keys.openai}
-              ></input>
-            </div>
+            {/* Skapar en input för varje objekt i settingsForm */}
+            {settingsForm(keys).map((field, index) => (
+              <div key={index} className="flex flex-col gap-2 px-4 py-2">
+                <label htmlFor={field.name}>{field.label}</label>
+                <input
+                  required
+                  type="password"
+                  id={field.name}
+                  name={field.name}
+                  className="border border-black rounded  py-1 px-2"
+                  defaultValue={field.key}
+                ></input>
+              </div>
+            ))}
             <div className="py-2 px-4 border-t border-black flex justify-end gap-2">
               <button
                 type="submit"
