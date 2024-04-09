@@ -260,10 +260,11 @@ const TodoWidget = () => {
                 className="border border-black rounded py-1 px-2"
               ></input>
               <button
+                disabled={newMutation.isPending}
                 type="submit"
                 className="bg-blue-500 rounded py-1 px-4 text-white"
               >
-                Skapa
+                {newMutation.isPending ? "Lägger till..." : "Skapa"}
               </button>
             </div>
           </form>
