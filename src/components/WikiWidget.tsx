@@ -12,7 +12,7 @@ const getFeatured = async (key: string | undefined) => {
     throw new Error("Lägg till din API nyckel i inställningarna");
   }
 
-  let url = `https://api.wikimedia.org/feed/v1/wikipedia/sv/featured/${moment().format(
+  const url = `https://api.wikimedia.org/feed/v1/wikipedia/sv/featured/${moment().format(
     "YYYY/MM/DD"
   )}`;
 

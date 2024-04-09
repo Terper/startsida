@@ -4,6 +4,7 @@ import { XMarkIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
 import IPWidget from "./components/IPWidget";
 import WeatherWidget from "./components/WeatherWidget";
 import WikiWidget from "./components/WikiWidget";
+import TodoWidget from "./components/TodoWidget";
 
 const settingsForm = (keys: Keys) => [
   {
@@ -21,6 +22,11 @@ const settingsForm = (keys: Keys) => [
     label: "OpenAI-AMA API nyckel",
     key: keys.openai,
   },
+  {
+    name: "todo",
+    label: "ToDo API nyckel",
+    key: keys.todo,
+  },
 ];
 
 function App() {
@@ -36,7 +42,7 @@ function App() {
     setKeys(keys);
   };
 
-  const updateSettings = (event: any) => {
+  const updateSettings = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // hämtar formulär data genom onSubmit eventet
     const form = event.currentTarget;
@@ -64,6 +70,7 @@ function App() {
         {/* högra panelen */}
         <div className="flex flex-col gap-4 md:w-[64ch]">
           <WikiWidget></WikiWidget>
+          <TodoWidget></TodoWidget>
         </div>
       </main>
       {/* inställnings modal, visas om isSettingsOpen är sant */}

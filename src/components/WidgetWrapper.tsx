@@ -20,7 +20,7 @@ const WidgetWrapper = (props: PropsWithChildren<Props>) => {
 
   return (
     <div
-      className={`${props.bgColor} flex flex-col rounded border ${props.borderColor} w-full`}
+      className={`${props.bgColor} flex flex-col rounded border ${props.borderColor} w-full divide-y`}
     >
       <div className="flex justify-between">
         <span className="text-xl py-2 px-4">{props.name}</span>
@@ -41,9 +41,7 @@ const WidgetWrapper = (props: PropsWithChildren<Props>) => {
       </div>
       <div
         className={`${
-          isExpanded
-            ? `border-t ${props.borderColor} ${props.bgColor}`
-            : "hidden"
+          isExpanded ? `${props.borderColor} ${props.bgColor}` : "hidden"
         }`}
       >
         {props.children}
