@@ -55,14 +55,14 @@ function App() {
           <WrenchScrewdriverIcon className="w-8 h-8 opacity-50 hover:opacity-100" />
         </button>
       </header>
-      <main className="p-4 flex gap-4">
+      <main className="p-4 flex flex-col md:flex-row gap-4 ">
         {/* vänstra panelen */}
-        <div className="w-64 flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row md:flex-col w-full gap-4 md:w-64">
           <IPWidget></IPWidget>
           <WeatherWidget></WeatherWidget>
         </div>
         {/* högra panelen */}
-        <div className="w-[65ch] flex flex-col gap-4">
+        <div className="flex flex-col gap-4 md:w-[64ch]">
           <WikiWidget></WikiWidget>
         </div>
       </main>

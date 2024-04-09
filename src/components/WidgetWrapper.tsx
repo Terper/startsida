@@ -20,7 +20,7 @@ const WidgetWrapper = (props: PropsWithChildren<Props>) => {
 
   return (
     <div
-      className={`${props.bgColor} flex flex-col rounded border ${props.borderColor}`}
+      className={`${props.bgColor} flex flex-col rounded border ${props.borderColor} w-full`}
     >
       <div className="flex justify-between">
         <span className="text-xl py-2 px-4">{props.name}</span>
