@@ -7,8 +7,6 @@ import WidgetWrapper from "./WidgetWrapper";
 import WidgetError from "./WidgetError";
 import WidgetLoader from "./WidgetLoader";
 
-type Props = {};
-
 const getWeather = async (
   key: string | undefined,
   coords: Coords | undefined,
@@ -41,7 +39,7 @@ const getWeather = async (
   return json;
 };
 
-const WeatherWidget = (props: Props) => {
+const WeatherWidget = () => {
   const [name, setName] = useState("Vädret");
   const keys = useKeyStore((state) => state.keys);
   const coords = useCoordsStore((state) => state.coords);

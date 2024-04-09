@@ -5,8 +5,6 @@ import WidgetWrapper from "./WidgetWrapper";
 import WidgetError from "./WidgetError";
 import WidgetLoader from "./WidgetLoader";
 
-type Props = {};
-
 const getIp = async (coordsStore: CoordsStore) => {
   const response = await fetch("https://ipapi.co/json/");
   if (!response.ok) throw new Error("Tjänst ur funktion");
@@ -16,7 +14,7 @@ const getIp = async (coordsStore: CoordsStore) => {
   return json;
 };
 
-const IPWidget = (props: Props) => {
+const IPWidget = () => {
   const coordsStore = useCoordsStore((state) => state);
   const { data, status, error, refetch } = useQuery<GetIP>({
     queryKey: ["getIp"],

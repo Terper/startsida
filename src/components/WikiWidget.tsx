@@ -6,8 +6,6 @@ import WidgetWrapper from "./WidgetWrapper";
 import WidgetError from "./WidgetError";
 import WidgetLoader from "./WidgetLoader";
 
-type Props = {};
-
 const getFeatured = async (key: string | undefined) => {
   // returnerar tidigt ifall API nyckeln inte är satt
   if (key === undefined) {
@@ -39,7 +37,7 @@ const getFeatured = async (key: string | undefined) => {
   return json;
 };
 
-const WikiWidget = (props: Props) => {
+const WikiWidget = () => {
   const keys = useKeyStore((state) => state.keys);
 
   const { data, status, error, refetch } = useQuery<GetFeatured>({

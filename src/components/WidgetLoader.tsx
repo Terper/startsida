@@ -1,6 +1,4 @@
-type Props = {};
-
-const WidgetLoader = (props: Props) => {
+const WidgetLoader = () => {
   return (
     <div className="py-2 px-4">
       <svg
