@@ -1,5 +1,4 @@
-import React from "react";
-import { CgSync } from "react-icons/cg";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   // felmeddelandet
@@ -14,7 +13,7 @@ const WidgetError = (props: Props) => {
       <span className="py-2 px-4">{props.message}</span>
       {props.refetch ? (
         <button onClick={() => props.refetch!()} className="py-2 px-4">
-          <CgSync></CgSync>
+          <ArrowPathIcon className="w-4 h-4 text-black"></ArrowPathIcon>
         </button>
       ) : (
         <></>

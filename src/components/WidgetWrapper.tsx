@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, useState } from "react";
-import { CgChevronUp, CgChevronDown } from "react-icons/cg";
+import { PropsWithChildren, useState } from "react";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   // namnet högst upp
@@ -20,7 +20,7 @@ const WidgetWrapper = (props: PropsWithChildren<Props>) => {
 
   return (
     <div
-      className={`${props.bgColor} flex flex-col rounded border ${props.borderColor}`}
+      className={`${props.bgColor} flex flex-col rounded border ${props.borderColor} w-full`}
     >
       <div className="flex justify-between">
         <span className="text-xl py-2 px-4">{props.name}</span>
@@ -29,7 +29,11 @@ const WidgetWrapper = (props: PropsWithChildren<Props>) => {
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-xl py-2 px-4"
           >
-            {isExpanded ? <CgChevronUp /> : <CgChevronDown />}
+            {isExpanded ? (
+              <ChevronUpIcon className="h-6 w-6" />
+            ) : (
+              <ChevronDownIcon className="h-6 w-6" />
+            )}
           </button>
         ) : (
           <></>

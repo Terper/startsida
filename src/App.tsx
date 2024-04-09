@@ -1,12 +1,9 @@
-"use client";
-
-import IPWidget from "@/components/IPWidget";
-import WeatherWidget from "@/components/WeatherWidget";
-import WikiWidget from "@/components/WikiWidget";
-import YleWidget from "@/components/YleWidget";
-import useKeyStore, { Keys } from "@/utils/useKeyStore";
 import { useState } from "react";
-import { CgClose, CgOptions } from "react-icons/cg";
+import useKeyStore, { Keys } from "./utils/useKeyStore";
+import { XMarkIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
+import IPWidget from "./components/IPWidget";
+import WeatherWidget from "./components/WeatherWidget";
+import WikiWidget from "./components/WikiWidget";
 
 const settingsForm = (keys: Keys) => [
   {
@@ -26,7 +23,7 @@ const settingsForm = (keys: Keys) => [
   },
 ];
 
-const Home = () => {
+function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const { keys, setKeys } = useKeyStore((state) => state);
 
@@ -55,18 +52,17 @@ const Home = () => {
       <header className="pt-4 px-4 flex justify-between items-center">
         <h1 className="text-4xl">Min startsida</h1>
         <button onClick={openSettings}>
-          <CgOptions className="text-4xl opacity-50 hover:opacity-100" />
+          <WrenchScrewdriverIcon className="w-8 h-8 opacity-50 hover:opacity-100" />
         </button>
       </header>
-      <main className="p-4 flex gap-4">
+      <main className="p-4 flex flex-col md:flex-row gap-4 ">
         {/* vänstra panelen */}
-        <div className="w-64 flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row md:flex-col w-full gap-4 md:w-64">
           <IPWidget></IPWidget>
           <WeatherWidget></WeatherWidget>
         </div>
         {/* högra panelen */}
-        <div className="w-[65ch] flex flex-col gap-4">
-          <YleWidget></YleWidget>
+        <div className="flex flex-col gap-4 md:w-[64ch]">
           <WikiWidget></WikiWidget>
         </div>
       </main>
@@ -80,7 +76,7 @@ const Home = () => {
           <div className="border-b border-black flex justify-between">
             <span className="py-2 px-4 text-xl">Inställningar</span>
             <button className="py-2 px-4 text-xl" onClick={cancelSettings}>
-              <CgClose />
+              <XMarkIcon />
             </button>
           </div>
           <form className="flex flex-col" onSubmit={updateSettings}>
@@ -118,5 +114,6 @@ const Home = () => {
       </div>
     </>
   );
-};
-export default Home;
+}
+
+export default App;

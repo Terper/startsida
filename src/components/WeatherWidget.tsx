@@ -1,16 +1,11 @@
-"use client";
-
-import { GetIP } from "@/types/GetIp";
 import { useQuery } from "@tanstack/react-query";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import WidgetLoader from "./WidgetLoader";
-import WidgetError from "./WidgetError";
+import { Dispatch, SetStateAction, useState } from "react";
+import { GetWeather } from "../types/GetWeather";
+import useKeyStore from "../utils/useKeyStore";
+import useCoordsStore, { Coords } from "../utils/useCoordsStore";
 import WidgetWrapper from "./WidgetWrapper";
-import { GetWeather } from "@/types/GetWeather";
-import useKeyStore from "@/utils/useKeyStore";
-import useCoordsStore, { Coords } from "@/utils/useCoordsStore";
-
-type Props = {};
+import WidgetError from "./WidgetError";
+import WidgetLoader from "./WidgetLoader";
 
 const getWeather = async (
   key: string | undefined,
@@ -44,7 +39,7 @@ const getWeather = async (
   return json;
 };
 
-const WeatherWidget = (props: Props) => {
+const WeatherWidget = () => {
   const [name, setName] = useState("Vädret");
   const keys = useKeyStore((state) => state.keys);
   const coords = useCoordsStore((state) => state.coords);

@@ -1,13 +1,10 @@
-import { GetFeatured } from "@/types/GetFeatured";
-import useKeyStore from "@/utils/useKeyStore";
+import { GetFeatured } from "../types/GetFeatured";
+import useKeyStore from "../utils/useKeyStore";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
-import React from "react";
 import WidgetWrapper from "./WidgetWrapper";
 import WidgetError from "./WidgetError";
 import WidgetLoader from "./WidgetLoader";
-
-type Props = {};
 
 const getFeatured = async (key: string | undefined) => {
   // returnerar tidigt ifall API nyckeln inte är satt
@@ -40,7 +37,7 @@ const getFeatured = async (key: string | undefined) => {
   return json;
 };
 
-const WikiWidget = (props: Props) => {
+const WikiWidget = () => {
   const keys = useKeyStore((state) => state.keys);
 
   const { data, status, error, refetch } = useQuery<GetFeatured>({

@@ -1,14 +1,9 @@
-"use client";
-
-import { GetIP } from "@/types/GetIp";
+import { GetIP } from "../types/GetIp";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import WidgetLoader from "./WidgetLoader";
-import WidgetError from "./WidgetError";
+import useCoordsStore, { CoordsStore } from "../utils/useCoordsStore";
 import WidgetWrapper from "./WidgetWrapper";
-import useCoordsStore, { CoordsStore } from "@/utils/useCoordsStore";
-
-type Props = {};
+import WidgetError from "./WidgetError";
+import WidgetLoader from "./WidgetLoader";
 
 const getIp = async (coordsStore: CoordsStore) => {
   const response = await fetch("https://ipapi.co/json/");
@@ -19,7 +14,7 @@ const getIp = async (coordsStore: CoordsStore) => {
   return json;
 };
 
-const IPWidget = (props: Props) => {
+const IPWidget = () => {
   const coordsStore = useCoordsStore((state) => state);
   const { data, status, error, refetch } = useQuery<GetIP>({
     queryKey: ["getIp"],
