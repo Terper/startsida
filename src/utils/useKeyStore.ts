@@ -5,6 +5,7 @@ interface Keys {
   openweather?: string;
   openai?: string;
   wikipedia?: string;
+  todo?: string;
 }
 
 interface KeyStore {
