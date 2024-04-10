@@ -197,7 +197,7 @@ const TodoWidget = () => {
                     {todo.category}
                   </div>
                 </div>
-                {todo.due_date && !todo.done && (
+                {!!todo.due_date && !todo.done && (
                   <div className="text-xs">
                     {moment(todo.due_date).locale("sv").fromNow()}
                   </div>
