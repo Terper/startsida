@@ -5,6 +5,7 @@ import IPWidget from "./components/IPWidget";
 import WeatherWidget from "./components/WeatherWidget";
 import WikiWidget from "./components/WikiWidget";
 import TodoWidget from "./components/TodoWidget";
+import OpenAIWidget from "./components/OpenAIWidget";
 
 const settingsForm = (keys: Keys) => [
   {
@@ -71,6 +72,7 @@ function App() {
         <div className="flex flex-col gap-4 md:w-[64ch]">
           <WikiWidget></WikiWidget>
           <TodoWidget></TodoWidget>
+          <OpenAIWidget></OpenAIWidget>
         </div>
       </main>
       {/* inställnings modal, visas om isSettingsOpen är sant */}
