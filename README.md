@@ -1,30 +1,17 @@
-# React + TypeScript + Vite
+# Startsida
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Länk till sidan](https://wdbcms24-startpage.pages.dev/)<br><br>
+Inställningarna finns uppe i högra hörnet, man behöver fylla i varje fält för att kunna spara formuläret.
 
-Currently, two official plugins are available:
+## API tjänster vars nycklar behövs
+[Wikipedia](https://api.wikimedia.org/wiki/Getting_started_with_Wikimedia_APIs)*<br>
+[OpenWeather](https://openweathermap.org/)<br>
+[OpenAI-AMA](https://cgi.arcada.fi/~welandfr/tools/api_key.php)<br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### *Wikipedia
+Det krävs ett wikipedia konto för att skapa en nyckel, så ifall du inte har ett eller inte vill skapa ett så visar bilden nedan hur widgeten ser ut.
+<br><br>
+![image](https://github.com/fw-24/wdbcms24-startpage-totterman-slotte/assets/61060262/5105f99b-7a93-4c81-b5d7-495e1c582f4e)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## TODO Widget
+Todo widgeten blev gjord under första delen av projektets gång då jag (Jann) hade tråkigt. Den är inte ansluten till någon api just nu utan sparar bara datan i staten. För att se den behöver man lägga till en fake api nyckel i inställningarna, t.ex. ``fakeapinyckel`` eller vad som helst
