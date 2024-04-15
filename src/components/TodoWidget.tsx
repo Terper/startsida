@@ -175,54 +175,56 @@ const TodoWidget = () => {
       ) : status === "pending" ? (
         <WidgetLoader></WidgetLoader>
       ) : (
-        <div className="divide-y divide-solid flex flex-col overflow-scroll">
-          {data.map((todo) => (
-            <div key={todo.id} className="py-2 px-4 flex justify-between">
-              <div>
-                <div className="flex gap-4 items-center">
-                  <div
-                    className={`${
-                      todo.done ? "line-through text-black/50" : ""
-                    }`}
-                  >
-                    {todo.title}
+        <div className="divide-y divide-solid flex flex-col">
+          <div className="divide-y divide-solid max-h-96 overflow-scroll flex flex-col">
+            {data.map((todo) => (
+              <div key={todo.id} className="py-2 px-4 flex justify-between">
+                <div>
+                  <div className="flex gap-4 items-center">
+                    <div
+                      className={`${
+                        todo.done ? "line-through text-black/50" : ""
+                      }`}
+                    >
+                      {todo.title}
+                    </div>
+                    <div
+                      className={`rounded text-xs px-1 ${
+                        categoryColors[
+                          todo.category as keyof typeof categoryColors
+                        ]
+                      }`}
+                    >
+                      {todo.category}
+                    </div>
                   </div>
-                  <div
-                    className={`rounded text-xs px-1 ${
-                      categoryColors[
-                        todo.category as keyof typeof categoryColors
-                      ]
-                    }`}
-                  >
-                    {todo.category}
-                  </div>
-                </div>
-                {!!todo.due_date && !todo.done && (
-                  <div className="text-xs">
-                    {moment(todo.due_date).locale("sv").fromNow()}
-                  </div>
-                )}
-              </div>
-              <div className="flex items-center">
-                <button
-                  onClick={() => toggleDoneMutation.mutate(todo.id)}
-                  disabled={mutationIsLoading}
-                >
-                  {todo.done ? (
-                    <CheckCircleIcon className="h-6 w-6 text-green-500" />
-                  ) : (
-                    <CircleIcon className="h-6 w-6" />
+                  {!!todo.due_date && !todo.done && (
+                    <div className="text-xs">
+                      {moment(todo.due_date).locale("sv").fromNow()}
+                    </div>
                   )}
-                </button>
-                <button
-                  onClick={() => deleteMutation.mutate(todo.id)}
-                  disabled={mutationIsLoading}
-                >
-                  <TrashIcon className="h-6 w-6 text-red-500" />
-                </button>
+                </div>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => toggleDoneMutation.mutate(todo.id)}
+                    disabled={mutationIsLoading}
+                  >
+                    {todo.done ? (
+                      <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                    ) : (
+                      <CircleIcon className="h-6 w-6" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => deleteMutation.mutate(todo.id)}
+                    disabled={mutationIsLoading}
+                  >
+                    <TrashIcon className="h-6 w-6 text-red-500" />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
           <form
             className="py-2 px-4 flex flex-col gap-2"
             onSubmit={handleSubmit}
