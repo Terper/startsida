@@ -166,8 +166,8 @@ const TodoWidget = () => {
   return (
     <WidgetWrapper
       name={"ToDo"}
-      bgColor={"bg-zinc-100"}
-      borderColor={"border-zinc-200"}
+      bgColor={"bg-green-100"}
+      borderColor={"border-green-200"}
       isExpandable={true}
     >
       {status === "error" ? (
