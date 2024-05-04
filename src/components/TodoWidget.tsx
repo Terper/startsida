@@ -7,6 +7,8 @@ import "moment/dist/locale/sv";
 import moment from "moment";
 import { TrashIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { GetTodos } from "../types/GetTodos";
+import { GetCategories } from "../types/GetCategories";
 
 const CircleIcon = ({ className }: { className: string }) => (
   <svg
@@ -24,37 +26,6 @@ const CircleIcon = ({ className }: { className: string }) => (
     />
   </svg>
 );
-const todoData = [
-  {
-    id: 1,
-    title: "Köp mjölk",
-    done: false,
-    due_date: moment().add(6, "hours").toISOString(true),
-    category: "Hushåll",
-  },
-  {
-    id: 2,
-    title: "Köp flingor",
-    done: true,
-    due_date: moment().add(6, "hours").toISOString(true),
-    category: "Hushåll",
-  },
-  {
-    id: 3,
-    title: "Maila chefen",
-    done: false,
-    category: "Jobb",
-  },
-  {
-    id: 4,
-    title: "Laga todo-widgeten",
-    done: false,
-    due_date: "2024-05-08T23:59:00.0000+03:00",
-    category: "Skola",
-  },
-];
-
-const availableCategories = ["Hushåll", "Jobb", "Skola"];
 
 const categoryColors = {
   Hushåll: "bg-red-100 border border-red-300",
@@ -64,47 +35,81 @@ const categoryColors = {
 
 const getTodos = async (key: string) => {
   if (!key) throw new Error("Lägg till din API nyckel i inställningarna");
-  return todoData;
+  const response = await fetch("https://vm2208.kaj.pouta.csc.fi:8461/todos", {
+    method: "GET",
+    headers: {
+      Authorization: key,
+    },
+  });
+  if (response.ok === false) {
+    if (response.status === 401) {
+      throw new Error("Nyckeln är ogiltig");
+    }
+    throw new Error("Kunde inte ansluta");
+  }
+  return await response.json();
 };
 
-const getCategories = async (_key: string) => {
-  return availableCategories;
+const getCategories = async (key: string) => {
+  const response = await fetch(
+    "https://vm2208.kaj.pouta.csc.fi:8461/categories",
+    {
+      method: "GET",
+      headers: {
+        Authorization: key,
+      },
+    }
+  );
+  return await response.json();
 };
 
-const doToggleDoneMutation = async (id: number, _key: string) => {
-  const index = todoData.findIndex((todo) => todo.id === id);
-  todoData[index].done = !todoData[index].done;
+const doToggleDoneMutation = async (done: boolean, id: number, key: string) => {
+  await fetch(`https://vm2208.kaj.pouta.csc.fi:8461/todos/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ done: !done }),
+  });
 };
 
-const doDeleteMutation = async (id: number, _key: string) => {
-  const index = todoData.findIndex((todo) => todo.id === id);
-  todoData.splice(index, 1);
+const doDeleteMutation = async (id: number, key: string) => {
+  await fetch(`https://vm2208.kaj.pouta.csc.fi:8461/todos/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: key,
+    },
+  });
 };
 
 const doNewMutation = async (
-  _key: string,
+  key: string,
   title: string,
   category: string,
   due_date?: string
 ) => {
   type TodoItem = {
-    id: number;
     title: string;
-    done: boolean;
     category: string;
     due_date?: string;
   };
   const todoItem: TodoItem = {
-    id: todoData.length + 1,
     title,
-    done: false,
     category,
   };
   // om due_date är satt lägg till det i objektet
   if (due_date) {
     todoItem.due_date = due_date;
   }
-  todoData.push(todoItem);
+  await fetch(`https://vm2208.kaj.pouta.csc.fi:8461/todos`, {
+    method: "POST",
+    headers: {
+      Authorization: key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(todoItem),
+  });
 };
 
 const TodoWidget = () => {
@@ -113,13 +118,13 @@ const TodoWidget = () => {
   const [category, setCategory] = useState("");
 
   const { keys } = useKeyStore((state) => state);
-  const { data, status, error, refetch } = useQuery({
+  const { data, status, error, refetch } = useQuery<GetTodos>({
     queryKey: ["getTodos"],
     queryFn: () => getTodos(keys.todo!),
   });
 
-  // körs bara ifall todos har hämtats, vilket betyder att nyckeln också är satt
-  const categories = useQuery({
+  // körs bara ifall todos har hämtats, vilket betyder att nyckeln också är satt och korrekt
+  const categories = useQuery<GetCategories>({
     queryKey: ["getCategories"],
     queryFn: () => getCategories(keys.todo!),
     enabled: !!data,
@@ -128,7 +133,8 @@ const TodoWidget = () => {
   // mutationer för att uppdatera todos
   // refetch körs efter varje mutation för att uppdatera datan
   const toggleDoneMutation = useMutation({
-    mutationFn: (id: number) => doToggleDoneMutation(id, keys.todo!),
+    mutationFn: ({ done, id }: { done: boolean; id: number }) =>
+      doToggleDoneMutation(done, id, keys.todo!),
     onSuccess: () => {
       refetch();
     },
@@ -204,9 +210,15 @@ const TodoWidget = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex items-center">
+                <div className={"flex items-center"}>
                   <button
-                    onClick={() => toggleDoneMutation.mutate(todo.id)}
+                    className={mutationIsLoading ? "cursor-wait" : ""}
+                    onClick={() =>
+                      toggleDoneMutation.mutate({
+                        done: todo.done,
+                        id: todo.id,
+                      })
+                    }
                     disabled={mutationIsLoading}
                   >
                     {todo.done ? (
@@ -216,6 +228,7 @@ const TodoWidget = () => {
                     )}
                   </button>
                   <button
+                    className={mutationIsLoading ? "cursor-wait" : ""}
                     onClick={() => deleteMutation.mutate(todo.id)}
                     disabled={mutationIsLoading}
                   >
@@ -243,13 +256,13 @@ const TodoWidget = () => {
                 required
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
-                className="border border-black rounded py-1 px-2"
+                className="border border-black rounded py-1 px-2 bg-white"
               >
                 <option value="">Välj kategori</option>
                 {categories.data &&
-                  categories.data.map((category: string) => (
-                    <option key={category} value={category}>
-                      {category}
+                  categories.data.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
               </select>
