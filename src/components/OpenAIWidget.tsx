@@ -10,9 +10,7 @@ const messageToGPT = async (key: string, message: string) => {
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        prompt: message,
-      }),
+      body: JSON.stringify(message),
     }
   );
 
