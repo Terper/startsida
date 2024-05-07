@@ -173,7 +173,7 @@ const TodoWidget = () => {
     <WidgetWrapper
       name={"ToDo"}
       bgColor={"bg-green-100"}
-      borderColor={"border-green-200"}
+      borderColor={"border-green-300"}
       isExpandable={true}
     >
       {status === "error" ? (
@@ -181,8 +181,8 @@ const TodoWidget = () => {
       ) : status === "pending" ? (
         <WidgetLoader></WidgetLoader>
       ) : (
-        <div className="divide-y divide-solid flex flex-col">
-          <div className="divide-y divide-solid max-h-96 overflow-scroll flex flex-col">
+        <div className="divide-y divide-solid divide-green-300 flex flex-col">
+          <div className="divide-y divide-solid divide-green-300 max-h-96 overflow-scroll flex flex-col">
             {data.map((todo) => (
               <div key={todo.id} className="py-2 px-4 flex justify-between">
                 <div>

@@ -6,7 +6,7 @@ import useKeyStore from "../utils/useKeyStore";
 //kallar på api med nyckeln och med användarens meddelande
 const messageToGPT = async (key: string, message: string) => {
   const response = await fetch(
-    `https://openai-ama-api-fw-teaching.rahtiapp.fi/?api_key=${key}&simulation=1`,
+    `https://openai-ama-api-fw-teaching.rahtiapp.fi/?api_key=${key}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
