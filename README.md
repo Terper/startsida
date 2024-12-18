@@ -1,5 +1,7 @@
 This project was made for the course "Web communication, databases and cms" in collaboration with a fellow student.
 
+Connects with an API for the todo section that is not currently hosted anywhere. [Repo for API](https://github.com/Terper/startsida-api)
+
 # Startsida
 
 [Länk till sidan](https://wdbcms24-startpage.pages.dev/)<br><br>
