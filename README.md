@@ -1,3 +1,5 @@
+This project was made for the course "Web communication, databases and cms" in collaboration with a fellow student.
+
 # Startsida
 
 [Länk till sidan](https://wdbcms24-startpage.pages.dev/)<br><br>
